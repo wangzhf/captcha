@@ -21,10 +21,10 @@ public class CaptchaConfig {
 	private int charNum = 4;
 	
 	// 图片宽度
-	private int width = 70;
+	private int width = 120;
 	
 	// 图片高度
-	private int height = 40;
+	private int height = 32;
 	
 	// 扭曲度
 	private float torsion = 5;
