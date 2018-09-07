@@ -1,7 +1,11 @@
 package com.wangzhf.my;
 
+import com.wangzhf.feiniu.CaptchaGenerator;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.*;
 
 public class Image2 {
 
@@ -34,6 +38,7 @@ public class Image2 {
             pts[i] = (int) (sines[i] * maxHeight / 2 * .95 + maxHeight / 2);
 
         int startY = 10;
+        boolean reverseColor = false;
         for (int i = 1; i < points; i++) {
             int x1 = (int) ((i - 1) * hstep);
             int x2 = (int) (i * hstep);
@@ -51,31 +56,57 @@ public class Image2 {
                 g.setColor(new Color(rgb));
             }
             g.drawLine(x1, y1, x2, y2);
-            System.out.println("sin: " + x1 + ", " + y1 + ", " + x2 + ", " + y2);
 
-            // 下方设置颜色
-            int tempHeight = height - y2;
-            if(tempHeight < 0){
-                height = y2;
+            if(x1 != x2) {
+                reverseColor = true;
+            } else {
+                reverseColor = false;
             }
 
-            for (int m = y1 + 1; m < height ; m++){
-                int rgb2 = bi.getRGB(x1, m);
-                System.out.println("x1: " + x1 + ", m: " + m + ", rgb2: " + rgb2);
-                System.out.println(m);
-                if(rgb2 == Color.WHITE.getRGB()){
-                    g.setColor(Color.RED);
-                    System.out.println("111");
-                    // g.drawLine(x1, y1, x1, height * 2);
-                    g.drawLine(x1, y1, x1, m);
-                }else{
-                    System.out.println("222");
-                    g.setColor(new Color(rgb2));
-                    g.drawLine(x1, y1, x1, m);
+            if(reverseColor){
+                // System.out.println("sin: " + x1 + ", " + y1 + ", " + x2 + ", " + y2);
+                int tempH = 0;
+                for(int h = y1; h < height; h++){
+                    for (int s = x1; s <= x2; s++ ){
+                        if(h != tempH) {
+                            int rgb2 = bi.getRGB(s, h);
+                            if(rgb2 == Color.WHITE.getRGB()) {
+                                g.setColor(Color.BLACK);
+                                g.drawLine(s, h, s, h);
+                            } else {
+                                g.setColor(Color.WHITE);
+                                g.drawLine(s, h, s, h);
+                            }
+                            tempH = h;
+                        }
+                    }
                 }
             }
 
         }
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        CaptchaGenerator g = new CaptchaGenerator();
+        for (int i=0; i<10; i++){
+            BufferedImage bi = g.g1();
+            Graphics2D g2 = (Graphics2D) bi.getGraphics();
+            // Image image = new Image();
+            Image2 image = new Image2();
+            image.paintComponent(bi, g2);
+            g2.dispose();
+            String path = "D:\\temp\\images\\aa\\";
+            String fileName = i + ".png";
+            String result = path + fileName;
+            File file = new File(result);
+            OutputStream out = new FileOutputStream(file);
+            try {
+                ImageIO.write(bi, "png", out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 //    public static void main(String[] args) throws FileNotFoundException {

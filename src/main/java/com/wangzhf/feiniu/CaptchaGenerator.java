@@ -134,7 +134,7 @@ public class CaptchaGenerator {
             GlyphVector glyphVector = font.createGlyphVector(frc, captcha.substring(i, i + 1));
             Shape glyph = glyphVector.getGlyphOutline(0, sx, sy);
             area.add(new Area(glyph));
-            double w = glyph.getBounds2D().getMaxX() - glyph.getBounds2D().getMinX() + 5;
+            double w = glyph.getBounds2D().getMaxX() - glyph.getBounds2D().getMinX() + 15;
             sx +=  captchaConfig.getAdhesion() + w - (w / 50);
         }
         g.fill(area);

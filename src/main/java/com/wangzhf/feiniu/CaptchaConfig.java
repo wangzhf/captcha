@@ -6,7 +6,7 @@ public class CaptchaConfig {
 	private String fontfamily = "Verdana";
 	
 	// 字体大小， 默认15
-	private int fontSize = 15;
+	private int fontSize = 22;
 	
 	// 文字颜色
 	private String[] fontColor = new String[]{"2746A1", "C53326", "29A529"};
@@ -30,7 +30,7 @@ public class CaptchaConfig {
 	private float torsion = 5;
 	
 	// 粘连
-	private int adhesion = 0;
+	private int adhesion = 2;
 	
 	public CaptchaConfig(){
 		
