@@ -12,7 +12,7 @@ public class Image2 {
     static int width = 120;
 
     static int height = 32;
-    private static final int SCALEFACTOR = 200;
+    private static final int SCALEFACTOR = 400;
 
     private int cycles = 1;
 
@@ -49,7 +49,7 @@ public class Image2 {
             int rgb = bi.getRGB(x1, y1);
             if(rgb == Color.WHITE.getRGB()){
                 //System.out.println("true");
-                g.setColor(Color.RED);
+                g.setColor(Color.WHITE);
                 //System.out.println("sin: " + x1 + ", " + y1 + ", " + x2 + ", " + y2);
             }else{
                 //System.out.println("false");
@@ -95,7 +95,7 @@ public class Image2 {
             Image2 image = new Image2();
             image.paintComponent(bi, g2);
             g2.dispose();
-            String path = "D:\\temp\\images\\aa\\";
+            String path = "E:\\temp\\images\\aa\\";
             String fileName = i + ".png";
             String result = path + fileName;
             File file = new File(result);

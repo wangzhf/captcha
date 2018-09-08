@@ -202,13 +202,6 @@ public class VerifyCodeUtils {
         for (int i = 0; i < verifySize; i++) {
             AffineTransform affine = new AffineTransform();
             double theta = Math.PI / 4 * rand.nextDouble() * (rand.nextBoolean() ? 1 : -1);
-            // 纠正倾斜度
-            if(theta < -0.3){
-                theta = -0.3;
-            }
-            if(theta > 0.3) {
-                theta = 0.3;
-            }
             double anchorx = (w / verifySize) * i + fontSize / 2 ;
             double anchory = h / 2 ;
             System.out.println(new String(chars) + ", theta: " + theta + ", x: " + anchorx + ", y: " + anchory);
@@ -263,6 +256,13 @@ public class VerifyCodeUtils {
             double theta = Math.PI / 4 * rand.nextDouble() * (rand.nextBoolean() ? 1 : -1);
             double anchorx = (w / verifySize) * i + fontSize / 2 ;
             double anchory = h / 2 ;
+            // 纠正倾斜度
+            if(theta < -0.3){
+                theta = -0.3;
+            }
+            if(theta > 0.3) {
+                theta = 0.3;
+            }
             System.out.println(new String(chars) + ", theta: " + theta + ", x: " + anchorx + ", y: " + anchory);
             affine.setToRotation(theta, anchorx, anchory);
             g2.setTransform(affine);
@@ -373,7 +373,11 @@ public class VerifyCodeUtils {
             Image2 image = new Image2();
             image.paintComponent(bi, g2);
             g2.dispose();
-            String path = "D:\\temp\\images\\cpic\\new\\";
+            String path = "E:\\temp\\images\\cpic\\new\\";
+            File parent = new File(path);
+            if(!parent.exists()){
+                parent.mkdirs();
+            }
             String fileName = i + ".png";
             String result = path + fileName;
             File file = new File(result);
